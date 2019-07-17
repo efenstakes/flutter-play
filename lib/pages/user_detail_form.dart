@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lutr/pages/terminus.dart';
 
 import 'package:validate/validate.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -122,6 +123,16 @@ class _UserDetailPage extends State<UserDetailPage> {
                                   await launch('tel:0799919960');
                               }
 
+                          },
+                        ),
+
+                        RaisedButton(
+                          child: Text('Terminusify'),
+                          onPressed: () {
+                            Navigator.push( 
+                              context,
+                              MaterialPageRoute( builder: (context)=> Terminus() )
+                            );
                           },
                         )
 
