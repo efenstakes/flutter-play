@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lutr/pages/stepprs.dart';
 import 'package:lutr/pages/terminus.dart';
 
 import 'package:validate/validate.dart';
@@ -132,6 +133,16 @@ class _UserDetailPage extends State<UserDetailPage> {
                             Navigator.push( 
                               context,
                               MaterialPageRoute( builder: (context)=> Terminus() )
+                            );
+                          },
+                        ),
+
+                        RaisedButton( 
+                          child: Text('steppers'),
+                          onPressed: (){
+                            Navigator.push( 
+                              context, 
+                              MaterialPageRoute(builder: (context)=> Stepprs())
                             );
                           },
                         )
