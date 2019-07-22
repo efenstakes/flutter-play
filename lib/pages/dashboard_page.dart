@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:lutr/widgets/post_detail.dart';
 import 'dart:core';
 
@@ -10,11 +12,13 @@ import '../models/Post.dart';
 class DashboardPage extends StatefulWidget {
   
   User user = new User();
+  String uname;
 
   DashboardPage({ this.user });
 
+
   @override 
-  _DashboardPage createState()=> _DashboardPage();
+  _DashboardPage createState()=> _DashboardPage(uname: uname);
 
 }
 
@@ -22,6 +26,19 @@ class _DashboardPage extends State<DashboardPage> {
   
   Future<Post> post;
   Future<List<Post>> posts;
+  String uname;
+
+  _DashboardPage({this.uname}) {
+    this.initName();
+  }
+
+  initName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var name = prefs.getString('lutr:name');
+    setState(() {
+      uname = name;
+    });
+  }
 
   @override
   void initState() {
@@ -54,6 +71,7 @@ class _DashboardPage extends State<DashboardPage> {
           children: <Widget>[
 
                     Text(widget.user.email),
+                    Text('name $uname'),
 
                     // FutureBuilder<Post>(
                     //   future: post,

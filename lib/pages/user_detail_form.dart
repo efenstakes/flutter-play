@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 import 'package:lutr/pages/stepprs.dart';
 import 'package:lutr/pages/terminus.dart';
 
@@ -145,6 +148,11 @@ class _UserDetailPage extends State<UserDetailPage> {
                               MaterialPageRoute(builder: (context)=> Stepprs())
                             );
                           },
+                        ),
+
+                        RaisedButton(
+                          child: Text('get name'),
+                          onPressed: ()=> getName(),
                         )
 
                     ],
@@ -162,7 +170,7 @@ class _UserDetailPage extends State<UserDetailPage> {
     );
   }// Widget build(BuildContext context) { .. }
 
-  void _submitForm(BuildContext context) {
+  void _submitForm(BuildContext context) async {
     print('sbmit');
 
     if ( ! _formKey.currentState.validate() ) {
@@ -179,7 +187,10 @@ class _UserDetailPage extends State<UserDetailPage> {
       duration: Duration(seconds: 5)
     ));
     _formKey.currentState.save();
-
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('lutr:name', _newUser.name);
+    prefs.setString('lutr:email', _newUser.email);
 
     print(_newUser);
     Navigator.push(
@@ -189,6 +200,14 @@ class _UserDetailPage extends State<UserDetailPage> {
 
 
   }// void _submitForm() { .. }
+
+
+  getName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var uname = prefs.getString('lutr:name');
+    var mail = prefs.getString('lutr:email');
+    print('uname $uname mail $mail');
+  }
 
 
 
